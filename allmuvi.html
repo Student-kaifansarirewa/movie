@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Movies</title>
+  <style>
+    body{font-family:Arial;background:#f8f8f8;padding:20px;}
+    h2{margin-bottom:20px;}
+    .movies{display:flex;flex-wrap:wrap;gap:20px;}
+    .card{background:#fff;padding:15px;border-radius:10px;box-shadow:0 3px 8px rgba(0,0,0,.3);width:200px;text-align:center;}
+    .card img{width:100%;border-radius:8px;}
+    .btns{margin-top:10px;display:flex;justify-content:space-between;}
+    button{padding:6px 10px;border:none;border-radius:5px;cursor:pointer;}
+    .book{background:#28a745;color:white;}
+    .delete{background:#dc3545;color:white;}
+    .back{margin-bottom:20px;padding:10px 15px;background:#007bff;color:white;border:none;border-radius:5px;cursor:pointer;}
+  </style>
+</head>
+<body>
+  <button class="back" onclick="goBack()">⬅ Back</button>
+  <h2>🎬 All Movies</h2>
+
+  <div id="movieList" class="movies"></div>
+
+  <script>
+    // Movies from localStorage
+    let movies = JSON.parse(localStorage.getItem("movies")) || [];
+    let booked = JSON.parse(localStorage.getItem("booked")) || [];
+
+    function displayMovies(){
+      let container=document.getElementById("movieList");
+      container.innerHTML="";
+      if(movies.length===0){
+        container.innerHTML="<p>No movies available.</p>";
+        return;
+      }
+      movies.forEach((m,idx)=>{
+        let card=document.createElement("div");
+        card.className="card";
+        card.innerHTML=`<img src="${m.poster}">
+                        <h3>${m.title}</h3>
+                        <div class="btns">
+                          <button class="book">Book</button>
+                          <button class="delete">Delete</button>
+                        </div>`;
+        
+        // Book movie
+        card.querySelector(".book").onclick=()=>{
+          if(!booked.find(b=>b.id===m.id)){
+            booked.push(m);
+            localStorage.setItem("booked", JSON.stringify(booked));
+            alert(m.title+" booked ✅");
+          } else {
+            alert("Already booked!");
+          }
+        };
+
+        // Delete movie
+        card.querySelector(".delete").onclick=()=>{
+          if(confirm("Delete "+m.title+"?")){
+            movies.splice(idx,1);
+            localStorage.setItem("movies", JSON.stringify(movies));
+            displayMovies();
+          }
+        };
+
+        container.appendChild(card);
+      });
+    }
+
+    function goBack(){
+      window.location.href="Add.html";
+    }
+
+    displayMovies();
+  </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Movie</title>
+  <style>
+    body{
+        font-family:Arial;
+        background:#f8f8f8;
+        padding:20px;
+    }
+    h2{
+        margin-bottom:20px;
+    }
+    form{
+        background:#fff;
+        padding:20px;
+        border-radius:10px;
+        box-shadow:0 3px 8px rgba(0,0,0,.3);
+        max-width:400px;
+        margin:auto;
+    }
+    label{
+        display:block;
+        margin-top:10px;
+        font-weight:bold;
+    }
+    input{
+        width:100%;
+        padding:8px;
+        margin-top:5px;
+        border:1px solid #ccc;
+        border-radius:5px;
+    }
+    button{
+        margin-top:15px;
+        padding:10px 15px;
+        background:#28a745;
+        color:white;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+    }
+    .NextPage{
+        margin-top:15px;
+        padding:10px 15px;
+        background:#28a745;
+        color:white;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+    }
+    button:hover{
+        background:#218838;
+    }
+    .back{
+        margin-top:15px;
+        padding:10px 15px;
+        background:#007bff;
+        color:white;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+    }
+    .next{
+        margin-top: 15px;
+        padding-right: 10px 15px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎬 Add New Movie</h2>
+  <form id="movieForm">
+    <label>Movie Title:</label>
+    <input type="text" id="title" required>
+
+    <label>Poster URL:</label>
+    <input type="text" id="poster" required>
+
+     <label>Movie Language:</label>
+     <input type="text" id="language" required>
+    
+     <label>Hero Name:</label>
+    <input type="text" id="name" required>
+     
+    <label>Releas Date:</label>
+    <input type="text" id="date" required>
+
+
+    <button type="submit">Add Movie</button>
+  </form>
+
+  <button class="back" onclick="goBack()">⬅ Back</button>
+           
+  <button class="next" onclick="goNext()" id="NextPage">⬅ Next</button>
+
+  <script>
+    let movies = JSON.parse(localStorage.getItem("movies")) || [];
+
+    document.getElementById("movieForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      let title=document.getElementById("title").value;
+      let poster=document.getElementById("poster").value;
+      let language=document.getElementById("language").value;
+      let name=document.getElementById("name").value;
+      let date=document.getElementById("date").value;
+      let newMovie={id:Date.now(), title:title, poster:poster,language:language};
+      movies.push(newMovie);
+      localStorage.setItem("movies", JSON.stringify(movies));
+
+      alert("✅ Movie Added Successfully!");
+      document.getElementById("movieForm").reset();
+    });
+
+    function goBack(){
+      window.location.href="movies.html";
+    }
+    function goNext(){
+      if(movies.length === 0){
+        alert("⚠ Please add at least one movie before proceeding.");
+        return;
+      }
+      window.location.href="allmuvi.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movies Page</title>
+  <style>
+    body{
+        font-family:Arial;
+        background:#f0f0f0;
+        padding:20px;
+    }
+    .gift-card{
+      width:250px;
+      height:150px;
+      background:linear-gradient(135deg,#ff7e5f,#feb47b);
+      border-radius:15px;
+      box-shadow:0 4px 10px rgba(0,0,0,.3);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      font-size:22px;
+      font-weight:bold;
+      color:white;
+      margin:auto;
+      transition:0.3s;
+    }
+    .gift-card:hover{
+      transform:scale(1.05);
+      box-shadow:0 6px 15px rgba(0,0,0,.4);
+    }
+  </style>
+</head>
+<body>
+  <h2>🎁 Welcome to Movie Zone</h2>
+  
+  <!-- Gift Card -->
+  <div class="gift-card" onclick="openAllMovies()">
+    🎬 View All Movies
+  </div>
+
+  <script>
+    function openAllMovies(){
+      window.location.href="Add.html"; // Next page
+    }
+  </script>
+</body>
+</html>
